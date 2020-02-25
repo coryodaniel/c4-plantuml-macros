@@ -1,0 +1,46 @@
+!define TECHN_FONT_SIZE 12
+
+' Context (System) Macros
+' TODO: SystemDb, SystemDb_Ext, Enterprise_Boundary
+!define Person(e_alias, e_label) actor "e_label" <<Internal Person>> as e_alias
+!define PersonExt(e_alias, e_label) actor "e_label" <<External Person>> as e_alias
+
+!define System(e_alias, e_label) rectangle "==e_label" <<Internal System>> as e_alias
+!define System(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<Internal System>> as e_alias
+!define System(e_alias, e_label, e_techn, e_desc) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<Internal System>> as e_alias
+
+!define SystemExt(e_alias, e_label) rectangle "==e_label" <<External System>> as e_alias
+!define SystemExt(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<External System>> as e_alias
+!define SystemExt(e_alias, e_label, e_techn, e_desc) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<External System>> as e_alias
+
+' SystemBoundary contains <<Container>> elements.
+!define SystemBoundary(e_alias, e_label) rectangle "==e_label" <<Expanded>> as e_alias
+
+' Container Macros
+' ContainerBoundary contains <<Component>> elements.
+!define ContainerBoundary(e_alias, e_label) rectangle "==e_label" <<Expanded>> as e_alias
+!define Container(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<Internal Container>> as e_alias
+!define Container(e_alias, e_label, e_techn, e_desc) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<Internal Container>> as e_alias
+!define ContainerDatabase(e_alias, e_label, e_techn) database "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<Internal Database>> as e_alias
+!define ContainerDatabase(e_alias, e_label, e_techn, e_desc) database "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<Internal Database>> as e_alias
+!define ContainerQueue(e_alias, e_label, e_techn) queue "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<Internal Queue>> as e_alias
+!define ContainerQueue(e_alias, e_label, e_techn, e_desc) queue "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<Internal Queue>> as e_alias
+
+' Component Macros
+' TODO: ComponentDatabase, ComponentQueue
+!define Component(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<Internal Component>> as e_alias
+!define Component(e_alias, e_label, e_techn, e_desc) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_desc" <<Internal Component>> as e_alias
+
+' Lines
+' TODO: Sync, Async & NO direction
+!define _Rel(e_from, e_to, e_label, e_direction="") e_from e_direction e_to : "e_label"
+!define _Rel(e_from, e_to, e_label, e_techn, e_direction="") e_from e_direction e_to : "e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//"
+
+!define Rel(e_from, e_to, e_label) _Rel(e_from, e_to, e_label, "-->")
+!define Rel(e_from, e_to, e_label, e_techn) _Rel(e_from,e_to, e_label, e_techn, "-->")
+
+!define SyncRel(e_from, e_to, e_label) _Rel(e_from, e_to, e_label, "-->")
+!define SyncRel(e_from, e_to, e_label, e_techn) _Rel(e_from,e_to, e_label, e_techn, "-->")
+
+!define AsyncRel(e_from, e_to, e_label) _Rel(e_from, e_to, e_label, "..>")
+!define AsyncRel(e_from, e_to, e_label, e_techn) _Rel(e_from,e_to, e_label, e_techn, "..>")
